@@ -1,5 +1,5 @@
 # Scrum Report (Sprint 3)
-| From 01/12/2021 to 07/12/2021s
+| From 01/12/2021 to 07/12/2021
 
 ### Team Sepuluh
 | NPM           | Name        |

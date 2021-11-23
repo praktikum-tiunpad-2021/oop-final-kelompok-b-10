@@ -18,7 +18,7 @@
 | ID  | Title/Desc | Asignee | Status |
 | --- | ---------- | ------- | ------ |
 | 1.1 | Implementasi Logika Puzzle | DONE |
-| 1.2 | Implementasi wireFrame UI dan merancang gambaran mokup | DONE |
+| 1.2 | Implementasi wireFrame UI dan merancang gambaran mockup | DONE |
 
 ## Retrospective 
 
