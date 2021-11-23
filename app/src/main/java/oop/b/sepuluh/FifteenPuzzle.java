@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+
 public class FifteenPuzzle extends Application {
 
     @Override
@@ -52,8 +53,15 @@ public class FifteenPuzzle extends Application {
         
         
         stage.setScene(scene);
+        
+        
         stage.show();
+        
+
+        
     }
+
+    
 
     public String getGreeting() {
         return "Hello World!";
