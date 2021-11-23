@@ -18,7 +18,7 @@ public class FifteenPuzzle extends Application {
     @Override
     public void start(Stage stage) {
         Group root = new Group();
-        Scene scene = new Scene(root, 640, 480);
+        Scene scene = new Scene(root, 1000, 480);
 
         double margin = 16f;
         double unit = (scene.getHeight() - (2 * margin)) * 0.25f;
