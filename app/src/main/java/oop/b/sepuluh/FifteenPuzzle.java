@@ -4,17 +4,40 @@
 package oop.b.sepuluh;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.Group;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
 
 public class FifteenPuzzle extends Application {
 
     @Override
     public void start(Stage stage) {
-        Label l = new Label(new FifteenPuzzle().getGreeting());
-        Scene scene = new Scene(new StackPane(l), 640, 480);
+        Group root = new Group();
+        Scene scene = new Scene(root, 640, 480);
+
+        double margin = 16f;
+        double unit = (scene.getHeight() - (2 * margin)) * 0.25f;
+
+        Rectangle rectangle = new Rectangle(margin, margin, unit * 4, unit * 4);
+        rectangle.setFill(Color.WHITE);
+        rectangle.setStroke(Color.BLACK);
+        rectangle.setOnMouseClicked(mouseEvent -> System.out.println(mouseEvent.getButton() + " On " + mouseEvent.getX() + ", " + mouseEvent.getY()));
+        root.getChildren().add(rectangle);
+
+        int i, j;
+
+        for (i = 0; i < 4; i++){
+            for (j = 0; j < 4; j++){
+                Rectangle rec = new Rectangle((j * unit) + margin, (i * unit) + margin, unit, unit);
+                rec.setFill(Color.WHITE);
+                rec.setStroke(Color.BLACK);
+                // rec.setOnMouseClicked(mouseEvent -> System.out.println("(" + i + ", " + j + ")"));
+                root.getChildren().add(rec);
+            }
+        }
+
         stage.setScene(scene);
         stage.show();
     }
