@@ -1,25 +1,25 @@
 # Sprint Planning 
-| dd/mm/yyyy
+| 23/11/2021
 
-### Team (Insert your name)
+### Team Insert Your Name
 | NPM           | Name        |
 | ------------- |-------------|
-| 140810xx00xx  | John Doe    |
-| 140810xx00xx  | Jane Doe    |
-| 140810xx00xx  | Lorem Ipsum |
+| 140810200012  | Della Fauziyyah Husna |
+| 140810200030  | Fauzan Azmi Dwicahyo |
+| 140810200040  | Indah Sutriyati |
 
 ## Sprint Backlog Keseluruhan 
 | ID  | Title/Desc | Asignee | 
 | --- | ---------- | ------- | 
-| 1.1 | Preparing the x | Jane Doe | 
-| 2.2 | Make the x | John Doe | 
+| 1.1 | Implementasi Logika Puzzle | Fauzan |
+| 1.2 | Implementasi Layout UI | Indah & Della |
+| 2.1 | Integrasi Logika Puzzle ke dalam UI | Fauzan, Indah, Della |
+| 3.1 | Testing dan Finishing | Fauzan, Indah, Della |
 
 ## Sprint Backlog Plan (Sprint 1)
 | ID  | Title/Desc | Asignee | 
 | --- | ---------- | ------- | 
-| 1.1 | Preparing the x | Jane Doe | 
-| 2.2 | Make the x | John Doe | 
+| 1.1 | Implementasi Logika Puzzle | Fauzan |
+| 1.2 | Implementasi Layout UI | Indah & Della |
 
 ## Retrospective 
-
-Sprint kemarin dianggap terlalu sedikit sehingga diperlukan adanya penyesuaian tugas. Lorem ipsum dolor sit amet
