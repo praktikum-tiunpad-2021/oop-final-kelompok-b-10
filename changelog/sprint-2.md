@@ -1,7 +1,7 @@
 # Scrum Report (Sprint 2)
 | From 24/11/2021 to 30/11/2021
 
-### Team Insert Your Name
+### Team Sepuluh
 | NPM           | Name        |
 | ------------- |-------------|
 | 140810200012  | Della Fauziyyah Husna |

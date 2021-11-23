@@ -1,7 +1,7 @@
 # Sprint Planning 
 | 23/11/2021
 
-### Team Insert Your Name
+### Team Sepuluh
 | NPM           | Name        |
 | ------------- |-------------|
 | 140810200012  | Della Fauziyyah Husna |
