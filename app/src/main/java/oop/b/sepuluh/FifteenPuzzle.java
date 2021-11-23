@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 public class FifteenPuzzle extends Application {
 
@@ -38,6 +40,17 @@ public class FifteenPuzzle extends Application {
             }
         }
 
+        Rectangle recMove = new Rectangle((5 * unit) + 32f, 0.5f*unit + 16f, 2 * unit, unit);
+        recMove.setFill(Color.GREY);
+        recMove.setStroke(Color.BLACK);
+        root.getChildren().add(recMove);
+
+        Rectangle recReset = new Rectangle((5 * unit) + 32f, (2.5f * unit) + 16f, 2 * unit, unit);
+        recReset.setFill(Color.GREY);
+        recReset.setStroke(Color.BLACK);
+        root.getChildren().add(recReset);
+        
+        
         stage.setScene(scene);
         stage.show();
     }
