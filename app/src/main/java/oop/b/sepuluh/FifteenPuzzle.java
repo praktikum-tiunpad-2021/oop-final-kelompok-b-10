@@ -10,6 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 
+
 public class FifteenPuzzle extends Application {
 
     @Override
@@ -38,9 +39,17 @@ public class FifteenPuzzle extends Application {
             }
         }
 
+    
         stage.setScene(scene);
+        
+        
         stage.show();
+        
+
+        
     }
+
+    
 
     public String getGreeting() {
         return "Hello World!";
