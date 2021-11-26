@@ -8,9 +8,10 @@ public class InnerPuzzle {
   private int moveCounter;
   private int zeroLocationX;
   private int zeroLocationY;
-  private final int PUZZLE_SIZE = 4;
+  private int puzzleSize;
 
-  public InnerPuzzle(){
+  public InnerPuzzle(int puzzleSize){
+    this.puzzleSize = puzzleSize;
     initGrid();
     moveCounter = 0;
   }
@@ -40,7 +41,7 @@ public class InnerPuzzle {
   }
 
   private void moveZeroDown(){
-    if (zeroLocationY == PUZZLE_SIZE - 1) return;
+    if (zeroLocationY == puzzleSize - 1) return;
 
     grid.get(zeroLocationY).set(zeroLocationX, grid.get(zeroLocationY + 1).get(zeroLocationX));
     grid.get(zeroLocationY + 1).set(zeroLocationX, 0);
@@ -58,7 +59,7 @@ public class InnerPuzzle {
   }
 
   private void moveZeroRight(){
-    if (zeroLocationX == PUZZLE_SIZE - 1) return;
+    if (zeroLocationX == puzzleSize - 1) return;
 
     grid.get(zeroLocationY).set(zeroLocationX, grid.get(zeroLocationY).get(zeroLocationX + 1));
     grid.get(zeroLocationY).set(zeroLocationX + 1, 0);
@@ -73,24 +74,24 @@ public class InnerPuzzle {
   private void initGrid(){
     grid = new ArrayList<ArrayList<Integer>>(4);
 
-    ArrayList<Integer> grid1D = new ArrayList<Integer>(PUZZLE_SIZE * PUZZLE_SIZE);
-    for (int i = 0; i < PUZZLE_SIZE * PUZZLE_SIZE; i++) grid1D.add(i);
+    ArrayList<Integer> grid1D = new ArrayList<Integer>(puzzleSize * puzzleSize);
+    for (int i = 0; i < puzzleSize * puzzleSize; i++) grid1D.add(i);
 
     Collections.shuffle(grid1D);
     while (!isSolvable(grid1D)) Collections.shuffle(grid1D);
 
     int initialGridCounter = 0;
-    for (int i = 0; i < PUZZLE_SIZE; i++){
-      ArrayList<Integer> row = new ArrayList<Integer>(PUZZLE_SIZE);
-      for (int j = 0; j < PUZZLE_SIZE; j++){
+    for (int i = 0; i < puzzleSize; i++){
+      ArrayList<Integer> row = new ArrayList<Integer>(puzzleSize);
+      for (int j = 0; j < puzzleSize; j++){
         row.add(grid1D.get(initialGridCounter));
         initialGridCounter++;
       }
       grid.add(row);
     }
 
-    for (int i = 0; i < PUZZLE_SIZE; i++){
-      for (int j = 0; j < PUZZLE_SIZE; j++){
+    for (int i = 0; i < puzzleSize; i++){
+      for (int j = 0; j < puzzleSize; j++){
         if (grid.get(i).get(j) == 0){
           zeroLocationX = j;
           zeroLocationY = i;
@@ -104,15 +105,15 @@ public class InnerPuzzle {
     while (grid1D.get(zeroLocation) != 0) zeroLocation++;
 
     int invCount = 0;
-    for (int i = 0; i < PUZZLE_SIZE - 1; i++){
-      for (int j = i + 1; j < PUZZLE_SIZE; j++){
+    for (int i = 0; i < puzzleSize - 1; i++){
+      for (int j = i + 1; j < puzzleSize; j++){
         if (grid1D.get(j) != 0 && grid1D.get(i) != 0 && grid1D.get(i) > grid1D.get(j))
           invCount++;
       }
     }
 
-    zeroLocation /= PUZZLE_SIZE;
-    // if (PUZZLE_SIZE % 2 == 1){
+    zeroLocation /= puzzleSize;
+    // if (puzzleSize % 2 == 1){
     //   if (invCount % 2 == 0) return true;
     // }
     // else {

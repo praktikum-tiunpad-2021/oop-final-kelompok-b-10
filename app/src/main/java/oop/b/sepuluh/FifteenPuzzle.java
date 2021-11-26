@@ -12,8 +12,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-
 public class FifteenPuzzle extends Application {
+    private static Stage mainStage;
+    private static int puzzleSize;
+    private static InnerPuzzle innerPuzzle;
 
     @Override
     public void start(Stage stage) {
@@ -62,6 +64,12 @@ public class FifteenPuzzle extends Application {
     }
 
     public static void main(String[] args) {
+        if(args.length == 0) 
+            puzzleSize = 4;
+        else if(args.length == 1) 
+            puzzleSize = Integer.parseInt(args[0]);
+
+        innerPuzzle = new InnerPuzzle(puzzleSize);
         launch();
     }
 
