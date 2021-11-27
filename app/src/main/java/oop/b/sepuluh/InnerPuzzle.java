@@ -18,12 +18,12 @@ public class InnerPuzzle {
 
   public void onClick(int boxX, int boxY){
     if(boxX == zeroLocationX){
-      if (boxY == zeroLocationY + 1) moveZeroRight();
-      else if (boxY == zeroLocationY - 1) moveZeroLeft();
+      if (boxY == zeroLocationY + 1) moveZeroDown();
+      else if (boxY == zeroLocationY - 1) moveZeroUp();
     }
     else if (boxY == zeroLocationY){
-      if (boxX == zeroLocationX + 1) moveZeroDown();
-      else if (boxX == zeroLocationX - 1) moveZeroUp();
+      if (boxX == zeroLocationX + 1) moveZeroRight();
+      else if (boxX == zeroLocationX - 1) moveZeroLeft();
     }
   }
 
@@ -36,7 +36,7 @@ public class InnerPuzzle {
 
     grid.get(zeroLocationY).set(zeroLocationX, grid.get(zeroLocationY - 1).get(zeroLocationX));
     grid.get(zeroLocationY - 1).set(zeroLocationX, 0);
-    zeroLocationY++;
+    zeroLocationY--;
     moveCounter++;
   }
 
@@ -45,7 +45,7 @@ public class InnerPuzzle {
 
     grid.get(zeroLocationY).set(zeroLocationX, grid.get(zeroLocationY + 1).get(zeroLocationX));
     grid.get(zeroLocationY + 1).set(zeroLocationX, 0);
-    zeroLocationY--;
+    zeroLocationY++;
     moveCounter++;
   }
 
@@ -93,8 +93,8 @@ public class InnerPuzzle {
     for (int i = 0; i < puzzleSize; i++){
       for (int j = 0; j < puzzleSize; j++){
         if (grid.get(i).get(j) == 0){
-          zeroLocationX = i;
-          zeroLocationY = j;
+          zeroLocationX = j;
+          zeroLocationY = i;
         }
       }
     }
