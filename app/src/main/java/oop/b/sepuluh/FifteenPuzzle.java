@@ -18,6 +18,7 @@ public class FifteenPuzzle extends Application {
     private static Stage mainStage;
     private static int puzzleSize = 4;
     private static InnerPuzzle innerPuzzle;
+    private Group tileGroup;
 
     @Override
     public void start(Stage stage) {
@@ -31,7 +32,9 @@ public class FifteenPuzzle extends Application {
         double margin = 16f;
         double unit = (scene.getHeight() - (2 * margin)) / puzzleSize;
 
-        drawGrid(root);
+        tileGroup = new Group();
+        root.getChildren().add(tileGroup);
+        drawGrid();
 
         Rectangle recMove = new Rectangle((5 * unit) + 32f, 0.5f*unit + 16f, 2 * unit, unit);
         recMove.setFill(Color.GREY);
@@ -45,48 +48,40 @@ public class FifteenPuzzle extends Application {
         stage.show();
     }
 
-    public void drawGrid(Group root) {
-        Group gridGroup = new Group();
+    public void drawGrid() {
+        tileGroup.getChildren().clear();
 
         double margin = 16f;
         double unit = (mainStage.getHeight() - (2 * margin)) / puzzleSize;
 
         for (int i = 0; i < puzzleSize; i++){
             for (int j = 0; j < puzzleSize; j++){
-                // if (innerPuzzle.getGrid(i, j) == 0) continue;
+                if (innerPuzzle.getGrid(i, j) == 0) continue;
 
                 final int row = i, col = j;
                 Rectangle rec = new Rectangle(unit - (margin/2), unit - (margin/2));
-
-                if (innerPuzzle.getGrid(i, j) == 0) rec.setFill(Color.WHITE);
-                else rec.setFill(Color.ORANGE);
-                // rec.setFill(Color.ORANGE);
-
+                rec.setFill(Color.ORANGE);
                 rec.setArcHeight(margin);
                 rec.setArcWidth(margin);
 
-                Label label = new Label();
-                if (innerPuzzle.getGrid(i, j) != 0) label.setText(Integer.toString(innerPuzzle.getGrid(i, j)));
+                Label label = new Label(Integer.toString(innerPuzzle.getGrid(i, j)));
                 label.setScaleX(unit / 25);
                 label.setScaleY(unit / 25);
 
                 StackPane tile = new StackPane(rec, label);
-                tile.setOnMouseClicked(mouseEvent -> onGridClick(root, col, row));
+                tile.setOnMouseClicked(mouseEvent -> onGridClick(col, row));
                 tile.setTranslateX((j * unit) + margin);
                 tile.setTranslateY((i * unit) + margin);
 
-                gridGroup.getChildren().add(tile);
+                tileGroup.getChildren().add(tile);
             }
         }
-
-        // TODO ini cuma nimpa-nimpa group sebelumnya, jadi group sebelumnya nggak kehapus. bisa jadi fitur undo sih, tapi umm.. makan memori
-        root.getChildren().add(gridGroup);
     }
 
-    private void onGridClick(Group root, int col, int row){
+    private void onGridClick(int col, int row){
         if (innerPuzzle.onClick(col, row)) {
-            drawGrid(root);
-            if (innerPuzzle.isSolved()) System.out.println("Solved!");
+            drawGrid();
+            if (innerPuzzle.isSolved()) System.out.println("Solved in " + innerPuzzle.getMoveCounter() + " moves!");
         }
     }
 
