@@ -143,8 +143,4 @@ public class InnerPuzzle {
     }
     return true;
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> a87de82e179d645d45d4041e81fd7b25d3802e5c
