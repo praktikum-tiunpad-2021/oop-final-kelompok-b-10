@@ -11,63 +11,138 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 
 public class FifteenPuzzle extends Application {
+    private static int puzzleSize = 4;
+
+    private Stage mainStage;
+    private Group tileGroup;
+    private Group moveCounterGroup;
+    private Button resetButton;
+
+    private InnerPuzzle innerPuzzle;
 
     @Override
     public void start(Stage stage) {
+        mainStage = stage;
+
         Group root = new Group();
-        Scene scene = new Scene(root, 1000, 480);
+        Scene scene = new Scene(root, 1280, 720);
+        mainStage.setScene(scene);
+        mainStage.setHeight(scene.getHeight());
+        mainStage.setResizable(false);
+        scene.widthProperty().addListener(listener -> drawComponents());
+        scene.heightProperty().addListener(listener -> drawComponents());
 
         double margin = 16f;
-        double unit = (scene.getHeight() - (2 * margin)) * 0.25f;
+        double unit = (scene.getHeight() - (2 * margin)) / puzzleSize;
 
-        Rectangle rectangle = new Rectangle(margin, margin, unit * 4, unit * 4);
-        rectangle.setFill(Color.WHITE);
-        rectangle.setStroke(Color.BLACK);
-        rectangle.setOnMouseClicked(mouseEvent -> System.out.println(mouseEvent.getButton() + " On " + mouseEvent.getX() + ", " + mouseEvent.getY()));
-        root.getChildren().add(rectangle);
+        tileGroup = new Group();
+        root.getChildren().add(tileGroup);
+        innerPuzzle = new InnerPuzzle(puzzleSize);
+        drawGrid();
 
-        int i, j;
+        moveCounterGroup = new Group();
+        root.getChildren().add(moveCounterGroup);
+        innerPuzzle = new InnerPuzzle(puzzleSize);
+        drawGrid();
 
-        for (i = 0; i < 4; i++){
-            for (j = 0; j < 4; j++){
-                Rectangle rec = new Rectangle((j * unit) + margin, (i * unit) + margin, unit, unit);
-                rec.setFill(Color.WHITE);
-                rec.setStroke(Color.BLACK);
-                // rec.setOnMouseClicked(mouseEvent -> System.out.println("(" + i + ", " + j + ")"));
-                root.getChildren().add(rec);
-            }
-        }
-
-        Rectangle recMove = new Rectangle((5 * unit) + 32f, 0.5f*unit + 16f, 2 * unit, unit);
-        recMove.setFill(Color.GREY);
-        recMove.setStroke(Color.BLACK);
-        root.getChildren().add(recMove);
+        // Rectangle recMove = new Rectangle((5 * unit) + 32f, 0.5f*unit + 16f, 2 * unit, unit);
+        // recMove.setFill(Color.GREY);
+        // recMove.setStroke(Color.BLACK);
+        // root.getChildren().add(recMove);
 
         Rectangle recReset = new Rectangle((5 * unit) + 32f, (2.5f * unit) + 16f, 2 * unit, unit);
         recReset.setFill(Color.GREY);
         recReset.setStroke(Color.BLACK);
         root.getChildren().add(recReset);
-        
-        
-        stage.setScene(scene);
-        
-        
         stage.show();
-        
-
-        
     }
 
-    
+    public void drawComponents() {
+        drawGrid();
+        // drawResetButton();
+        drawMoveCounter();
+    }
 
-    public String getGreeting() {
-        return "Hello World!";
+    public void drawMoveCounter(){
+        double margin = 16f;
+        double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
+
+        Rectangle recMove = new Rectangle((5 * unit) + 32f, 0.5f*unit + 16f, 2 * unit, unit);
+        
+        recMove.setFill(Color.GREY);
+        recMove.setStroke(Color.BLACK);
+
+
+        Label moveCounter = new Label(Integer.toString(innerPuzzle.getMoveCounter()));
+            moveCounter.setScaleX(unit / 30);
+            moveCounter.setScaleY(unit / 30);
+            moveCounter.setTextFill(Color.BLACK);
+
+        StackPane movee = new StackPane(recMove, moveCounter);
+        moveCounterGroup.getChildren().add(movee);
+        // root.getChildren().add(recMove); 
+    }
+
+
+    public void drawGrid() {
+        tileGroup.getChildren().clear();
+
+        double margin = 16f;
+        double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
+
+        for (int i = 0; i < puzzleSize; i++){
+            for (int j = 0; j < puzzleSize; j++){
+                if (innerPuzzle.getGrid(i, j) == 0) continue;
+
+                final int row = i, col = j;
+                Rectangle rec = new Rectangle(unit - (margin/2), unit - (margin/2));
+                rec.setFill(Color.ORANGE);
+                rec.setArcHeight(margin);
+                rec.setArcWidth(margin);
+
+                Label label = new Label(Integer.toString(innerPuzzle.getGrid(i, j)));
+                label.setScaleX(unit / 25);
+                label.setScaleY(unit / 25);
+
+                StackPane tile = new StackPane(rec, label);
+                tile.setOnMouseClicked(mouseEvent -> onGridClick(col, row));
+                tile.setTranslateX((j * unit) + margin);
+                tile.setTranslateY((i * unit) + margin);
+
+                tileGroup.getChildren().add(tile);
+            }
+        }
+
+        if (innerPuzzle.isSolved()) { 
+            Rectangle background = new Rectangle(puzzleSize * unit + (2 * margin), puzzleSize * unit + (2 * margin));
+            background.setFill(Color.BLACK);
+            background.setOpacity(0.3f);
+
+            Label finishLabel = new Label(Integer.toString(innerPuzzle.getMoveCounter()) + " langkah");
+            finishLabel.setScaleX(unit / 25);
+            finishLabel.setScaleY(unit / 25);
+            finishLabel.setTextFill(Color.BLACK);
+
+            StackPane cover = new StackPane(background, finishLabel);
+            tileGroup.getChildren().add(cover);
+        }
+    }
+
+    private void onGridClick(int col, int row){
+        if (innerPuzzle.onClick(col, row)) {
+            drawComponents();
+            if (innerPuzzle.isSolved()) System.out.println("Solved in " + innerPuzzle.getMoveCounter() + " moves!");
+        }
     }
 
     public static void main(String[] args) {
+        if(args.length == 1) 
+            puzzleSize = Integer.parseInt(args[0]);
+
         launch();
     }
 
