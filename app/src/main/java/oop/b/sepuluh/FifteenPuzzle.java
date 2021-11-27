@@ -3,6 +3,8 @@
  */
 package oop.b.sepuluh;
 
+import javax.swing.event.ChangeListener;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -28,6 +30,8 @@ public class FifteenPuzzle extends Application {
         Scene scene = new Scene(root, 640, 480);
         mainStage.setScene(scene);
         mainStage.setHeight(scene.getHeight());
+        scene.widthProperty().addListener(listener -> drawGrid());
+        scene.heightProperty().addListener(listener -> drawGrid());
 
         double margin = 16f;
         double unit = (scene.getHeight() - (2 * margin)) / puzzleSize;
