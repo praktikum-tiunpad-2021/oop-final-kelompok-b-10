@@ -3,8 +3,6 @@
  */
 package oop.b.sepuluh;
 
-import javax.swing.event.ChangeListener;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -21,6 +19,8 @@ public class FifteenPuzzle extends Application {
 
     private Stage mainStage;
     private Group tileGroup;
+    private Group moveCounterGroup;
+    private Button resetButton;
 
     private InnerPuzzle innerPuzzle;
 
@@ -29,11 +29,12 @@ public class FifteenPuzzle extends Application {
         mainStage = stage;
 
         Group root = new Group();
-        Scene scene = new Scene(root, 640, 480);
+        Scene scene = new Scene(root, 1280, 720);
         mainStage.setScene(scene);
         mainStage.setHeight(scene.getHeight());
-        scene.widthProperty().addListener(listener -> drawGrid());
-        scene.heightProperty().addListener(listener -> drawGrid());
+        mainStage.setResizable(false);
+        scene.widthProperty().addListener(listener -> drawComponents());
+        scene.heightProperty().addListener(listener -> drawComponents());
 
         double margin = 16f;
         double unit = (scene.getHeight() - (2 * margin)) / puzzleSize;
@@ -53,6 +54,12 @@ public class FifteenPuzzle extends Application {
         recReset.setStroke(Color.BLACK);
         root.getChildren().add(recReset);
         stage.show();
+    }
+
+    public void drawComponents() {
+        drawGrid();
+        // drawResetButton();
+        // drawMoveCounter();
     }
 
     public void drawGrid() {
@@ -83,11 +90,25 @@ public class FifteenPuzzle extends Application {
                 tileGroup.getChildren().add(tile);
             }
         }
+
+        if (innerPuzzle.isSolved()) { 
+            Rectangle background = new Rectangle(puzzleSize * unit + (2 * margin), puzzleSize * unit + (2 * margin));
+            background.setFill(Color.BLACK);
+            background.setOpacity(0.3f);
+
+            Label finishLabel = new Label(Integer.toString(innerPuzzle.getMoveCounter()) + " langkah");
+            finishLabel.setScaleX(unit / 25);
+            finishLabel.setScaleY(unit / 25);
+            finishLabel.setTextFill(Color.BLACK);
+
+            StackPane cover = new StackPane(background, finishLabel);
+            tileGroup.getChildren().add(cover);
+        }
     }
 
     private void onGridClick(int col, int row){
         if (innerPuzzle.onClick(col, row)) {
-            drawGrid();
+            drawComponents();
             if (innerPuzzle.isSolved()) System.out.println("Solved in " + innerPuzzle.getMoveCounter() + " moves!");
         }
     }
