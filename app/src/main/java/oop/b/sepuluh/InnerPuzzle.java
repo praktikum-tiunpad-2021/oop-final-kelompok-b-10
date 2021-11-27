@@ -109,22 +109,24 @@ public class InnerPuzzle {
   }
 
   private boolean isSolvable(ArrayList<Integer> grid1D){
-    int zeroLocation = 0;
-    while (grid1D.get(zeroLocation) != 0) zeroLocation++;
-
     int invCount = 0;
     for (int i = 0; i < puzzleSize - 1; i++){
+      if (grid1D.get(i) == 0) continue;
+
       for (int j = i + 1; j < puzzleSize; j++){
-        if (grid1D.get(j) != 0 && grid1D.get(i) != 0 && grid1D.get(i) > grid1D.get(j))
-          invCount++;
+        if (grid1D.get(j) == 0) continue;
+        if (grid1D.get(i) > grid1D.get(j)) invCount++;
       }
     }
 
-    zeroLocation /= puzzleSize;
     if (puzzleSize % 2 == 1){
       if (invCount % 2 == 0) return true;
     }
     else {
+      int zeroLocation = 0;
+      while (grid1D.get(zeroLocation) != 0) zeroLocation++;
+      zeroLocation /= puzzleSize;
+
       if (zeroLocation % 2 == 0 && invCount % 2 == 1) return true;
       if (zeroLocation % 2 == 1 && invCount % 2 == 0) return true;
     }
