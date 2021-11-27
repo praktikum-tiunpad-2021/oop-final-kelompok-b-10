@@ -67,8 +67,8 @@ public class InnerPuzzle {
     moveCounter++;
   }
 
-  public Integer getGrid(int row, int col){
-    return grid.get(row).get(col);
+  public Integer getGrid(int x, int y){
+    return grid.get(x).get(y);
   }
 
   private void initGrid(){
@@ -121,5 +121,16 @@ public class InnerPuzzle {
       if (zeroLocation % 2 == 1 && invCount % 2 == 0) return true;
     }
     return false;
+  }
+
+  public boolean isSolved(){
+    int counter = 1;
+    for (int i = 0; i < puzzleSize; i++){
+      for (int j = 0; j < puzzleSize; j++){
+        if (counter != puzzleSize * puzzleSize && getGrid(i, j) != counter) return false;
+        counter++;
+      }
+    }
+    return true;
   }
 }
