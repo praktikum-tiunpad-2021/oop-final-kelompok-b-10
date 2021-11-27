@@ -11,37 +11,27 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 
 public class FifteenPuzzle extends Application {
     private static Stage mainStage;
-    private static int puzzleSize;
+    private static int puzzleSize = 4;
     private static InnerPuzzle innerPuzzle;
 
     @Override
     public void start(Stage stage) {
+        mainStage = stage;
+
         Group root = new Group();
-        Scene scene = new Scene(root, 1000, 480);
+        Scene scene = new Scene(root, 640, 480);
+        mainStage.setScene(scene);
+        mainStage.setHeight(scene.getHeight());
 
         double margin = 16f;
-        double unit = (scene.getHeight() - (2 * margin)) * 0.25f;
+        double unit = (scene.getHeight() - (2 * margin)) / puzzleSize;
 
-        Rectangle rectangle = new Rectangle(margin, margin, unit * 4, unit * 4);
-        rectangle.setFill(Color.WHITE);
-        rectangle.setStroke(Color.BLACK);
-        rectangle.setOnMouseClicked(mouseEvent -> System.out.println(mouseEvent.getButton() + " On " + mouseEvent.getX() + ", " + mouseEvent.getY()));
-        root.getChildren().add(rectangle);
-
-        int i, j;
-
-        for (i = 0; i < 4; i++){
-            for (j = 0; j < 4; j++){
-                Rectangle rec = new Rectangle((j * unit) + margin, (i * unit) + margin, unit, unit);
-                rec.setFill(Color.WHITE);
-                rec.setStroke(Color.BLACK);
-                // rec.setOnMouseClicked(mouseEvent -> System.out.println("(" + i + ", " + j + ")"));
-                root.getChildren().add(rec);
-            }
-        }
+        drawGrid(root);
 
         Rectangle recMove = new Rectangle((5 * unit) + 32f, 0.5f*unit + 16f, 2 * unit, unit);
         recMove.setFill(Color.GREY);
@@ -52,21 +42,56 @@ public class FifteenPuzzle extends Application {
         recReset.setFill(Color.GREY);
         recReset.setStroke(Color.BLACK);
         root.getChildren().add(recReset);
-        
-        
-        stage.setScene(scene);
-        
-        
         stage.show();
-        
+    }
 
-        
+    public void drawGrid(Group root) {
+        Group gridGroup = new Group();
+
+        double margin = 16f;
+        double unit = (mainStage.getHeight() - (2 * margin)) / puzzleSize;
+
+        for (int i = 0; i < puzzleSize; i++){
+            for (int j = 0; j < puzzleSize; j++){
+                // if (innerPuzzle.getGrid(i, j) == 0) continue;
+
+                final int row = i, col = j;
+                Rectangle rec = new Rectangle(unit - (margin/2), unit - (margin/2));
+
+                if (innerPuzzle.getGrid(i, j) == 0) rec.setFill(Color.WHITE);
+                else rec.setFill(Color.ORANGE);
+                // rec.setFill(Color.ORANGE);
+
+                rec.setArcHeight(margin);
+                rec.setArcWidth(margin);
+
+                Label label = new Label();
+                if (innerPuzzle.getGrid(i, j) != 0) label.setText(Integer.toString(innerPuzzle.getGrid(i, j)));
+                label.setScaleX(4f);
+                label.setScaleY(4f);
+
+                StackPane tile = new StackPane(rec, label);
+                tile.setOnMouseClicked(mouseEvent -> onGridClick(root, col, row));
+                tile.setTranslateX((j * unit) + margin);
+                tile.setTranslateY((i * unit) + margin);
+
+                gridGroup.getChildren().add(tile);
+            }
+        }
+
+        // TODO ini cuma nimpa-nimpa group sebelumnya, jadi group sebelumnya nggak kehapus. bisa jadi fitur undo sih, tapi umm.. makan memori
+        root.getChildren().add(gridGroup);
+    }
+
+    private void onGridClick(Group root, int col, int row){
+        if (innerPuzzle.onClick(col, row)) {
+            drawGrid(root);
+            if (innerPuzzle.isSolved()) System.out.println("Solved!");
+        }
     }
 
     public static void main(String[] args) {
-        if(args.length == 0) 
-            puzzleSize = 4;
-        else if(args.length == 1) 
+        if(args.length == 1) 
             puzzleSize = Integer.parseInt(args[0]);
 
         innerPuzzle = new InnerPuzzle(puzzleSize);
