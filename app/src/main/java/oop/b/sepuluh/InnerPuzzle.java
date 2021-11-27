@@ -16,55 +16,63 @@ public class InnerPuzzle {
     moveCounter = 0;
   }
 
-  public void onClick(int boxX, int boxY){
+  /**
+   * true jika merupakan move legal (persis bersebelahan, tidak out of bounds), selain itu false
+   */
+  public boolean onClick(int boxX, int boxY){
     if(boxX == zeroLocationX){
-      if (boxY == zeroLocationY + 1) moveZeroDown();
-      else if (boxY == zeroLocationY - 1) moveZeroUp();
+      if (boxY == zeroLocationY + 1) return moveZeroDown();
+      if (boxY == zeroLocationY - 1) return moveZeroUp();
     }
-    else if (boxY == zeroLocationY){
-      if (boxX == zeroLocationX + 1) moveZeroRight();
-      else if (boxX == zeroLocationX - 1) moveZeroLeft();
+    if (boxY == zeroLocationY){
+      if (boxX == zeroLocationX + 1) return moveZeroRight();
+      if (boxX == zeroLocationX - 1) return moveZeroLeft();
     }
+    return false;
   }
 
   public int getMoveCounter(){
     return moveCounter;
   }
 
-  private void moveZeroUp(){
-    if (zeroLocationY == 0) return;
+  private boolean moveZeroUp(){
+    if (zeroLocationY == 0) return false;
 
     grid.get(zeroLocationY).set(zeroLocationX, grid.get(zeroLocationY - 1).get(zeroLocationX));
     grid.get(zeroLocationY - 1).set(zeroLocationX, 0);
     zeroLocationY--;
     moveCounter++;
+    return true;
   }
 
-  private void moveZeroDown(){
-    if (zeroLocationY == puzzleSize - 1) return;
+  private boolean moveZeroDown(){
+    if (zeroLocationY == puzzleSize - 1) return false;
 
     grid.get(zeroLocationY).set(zeroLocationX, grid.get(zeroLocationY + 1).get(zeroLocationX));
     grid.get(zeroLocationY + 1).set(zeroLocationX, 0);
     zeroLocationY++;
     moveCounter++;
+    return true;
   }
 
-  private void moveZeroLeft(){
-    if (zeroLocationX == 0) return;
+  private boolean moveZeroLeft(){
+    if (zeroLocationX == 0) return false;
 
     grid.get(zeroLocationY).set(zeroLocationX, grid.get(zeroLocationY).get(zeroLocationX - 1));
     grid.get(zeroLocationY).set(zeroLocationX - 1, 0);
     zeroLocationX--;
     moveCounter++;
+    return true;
   }
 
-  private void moveZeroRight(){
-    if (zeroLocationX == puzzleSize - 1) return;
+  private boolean moveZeroRight(){
+    if (zeroLocationX == puzzleSize - 1) return false;
 
     grid.get(zeroLocationY).set(zeroLocationX, grid.get(zeroLocationY).get(zeroLocationX + 1));
     grid.get(zeroLocationY).set(zeroLocationX + 1, 0);
     zeroLocationX++;
     moveCounter++;
+    return true;
   }
 
   public Integer getGrid(int x, int y){
