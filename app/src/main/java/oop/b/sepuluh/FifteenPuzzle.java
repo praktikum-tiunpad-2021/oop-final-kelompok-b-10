@@ -30,9 +30,10 @@ public class FifteenPuzzle extends Application {
 
         Group root = new Group();
         Scene scene = new Scene(root, 1280, 720);
+        scene.setFill(Color.rgb(114, 54, 90));
         mainStage.setScene(scene);
         mainStage.setHeight(scene.getHeight());
-        mainStage.setResizable(false);
+        // mainStage.setResizable(false);
         scene.widthProperty().addListener(listener -> drawComponents());
         scene.heightProperty().addListener(listener -> drawComponents());
 
@@ -68,19 +69,27 @@ public class FifteenPuzzle extends Application {
     }
 
     public void drawMoveCounter(){
+        moveCounterGroup.getChildren().clear();
         double margin = 16f;
-        double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
+        double unit = (mainStage.getHeight() - (14 * margin)) / puzzleSize;
 
-        Rectangle recMove = new Rectangle((5 * unit) + 32f, 0.5f*unit + 16f, 2 * unit, unit);
+        Rectangle recMove = new Rectangle(15*unit + (margin/15), 0.5*unit + (margin/16), 2*unit,unit);
+        // Rectangle recMove = new Rectangle((5 * unit) + 32f, 0.5f*unit + 16f, 2 * unit, unit);
         
-        recMove.setFill(Color.GREY);
+        recMove.setFill(Color.rgb(222, 152, 87));
         recMove.setStroke(Color.BLACK);
 
 
         Label moveCounter = new Label(Integer.toString(innerPuzzle.getMoveCounter()));
-            moveCounter.setScaleX(unit / 30);
-            moveCounter.setScaleY(unit / 30);
+            moveCounter.setScaleX(unit / 20);
+            moveCounter.setScaleY(unit / 20);
             moveCounter.setTextFill(Color.BLACK);
+
+        // Label moveText = new Label("Move:");
+        //     moveText.getChildren().add( moveText);
+        //     moveText.setScaleX(unit / 20);
+        //     moveText.setScaleY(unit / 20);
+        //     moveText.setTextFill(Color.BLACK);
 
         StackPane movee = new StackPane(recMove, moveCounter);
         moveCounterGroup.getChildren().add(movee);
@@ -93,6 +102,11 @@ public class FifteenPuzzle extends Application {
 
         double margin = 16f;
         double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
+        
+        // Rectangle latar = new Rectangle(margin, margin, puzzleSize * unit, puzzleSize * unit);
+        // latar.setFill(Color.BLACK);
+        // tileGroup.getChildren().add(latar);
+                
 
         for (int i = 0; i < puzzleSize; i++){
             for (int j = 0; j < puzzleSize; j++){
@@ -100,7 +114,7 @@ public class FifteenPuzzle extends Application {
 
                 final int row = i, col = j;
                 Rectangle rec = new Rectangle(unit - (margin/2), unit - (margin/2));
-                rec.setFill(Color.ORANGE);
+                rec.setFill(Color.rgb(222, 152, 87));
                 rec.setArcHeight(margin);
                 rec.setArcWidth(margin);
 
