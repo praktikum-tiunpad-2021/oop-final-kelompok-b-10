@@ -17,10 +17,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
 
 public class FifteenPuzzle extends Application {
-    private static Stage mainStage;
     private static int puzzleSize = 4;
-    private static InnerPuzzle innerPuzzle;
+
+    private Stage mainStage;
     private Group tileGroup;
+
+    private InnerPuzzle innerPuzzle;
 
     @Override
     public void start(Stage stage) {
@@ -38,6 +40,7 @@ public class FifteenPuzzle extends Application {
 
         tileGroup = new Group();
         root.getChildren().add(tileGroup);
+        innerPuzzle = new InnerPuzzle(puzzleSize);
         drawGrid();
 
         Rectangle recMove = new Rectangle((5 * unit) + 32f, 0.5f*unit + 16f, 2 * unit, unit);
@@ -93,7 +96,6 @@ public class FifteenPuzzle extends Application {
         if(args.length == 1) 
             puzzleSize = Integer.parseInt(args[0]);
 
-        innerPuzzle = new InnerPuzzle(puzzleSize);
         launch();
     }
 
