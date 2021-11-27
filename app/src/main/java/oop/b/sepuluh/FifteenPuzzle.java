@@ -67,8 +67,8 @@ public class FifteenPuzzle extends Application {
 
                 Label label = new Label();
                 if (innerPuzzle.getGrid(i, j) != 0) label.setText(Integer.toString(innerPuzzle.getGrid(i, j)));
-                label.setScaleX(4f);
-                label.setScaleY(4f);
+                label.setScaleX(unit / 25);
+                label.setScaleY(unit / 25);
 
                 StackPane tile = new StackPane(rec, label);
                 tile.setOnMouseClicked(mouseEvent -> onGridClick(root, col, row));
