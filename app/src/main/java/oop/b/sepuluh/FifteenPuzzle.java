@@ -52,7 +52,7 @@ public class FifteenPuzzle extends Application {
         tileGroup.getChildren().clear();
 
         double margin = 16f;
-        double unit = (mainStage.getHeight() - (2 * margin)) / puzzleSize;
+        double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
 
         for (int i = 0; i < puzzleSize; i++){
             for (int j = 0; j < puzzleSize; j++){
