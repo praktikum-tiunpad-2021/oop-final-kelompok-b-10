@@ -55,10 +55,10 @@ public class FifteenPuzzle extends Application {
         // recMove.setStroke(Color.BLACK);
         // root.getChildren().add(recMove);
 
-        Rectangle recReset = new Rectangle((5 * unit) + 32f, (2.5f * unit) + 16f, 2 * unit, unit);
-        recReset.setFill(Color.GREY);
-        recReset.setStroke(Color.BLACK);
-        root.getChildren().add(recReset);
+        // Rectangle recReset = new Rectangle((5 * unit) + 32f, (2.5f * unit) + 16f, 2 * unit, unit);
+        // recReset.setFill(Color.GREY);
+        // recReset.setStroke(Color.BLACK);
+        // root.getChildren().add(recReset);
         stage.show();
     }
 
@@ -70,10 +70,13 @@ public class FifteenPuzzle extends Application {
 
     public void drawMoveCounter(){
         moveCounterGroup.getChildren().clear();
-        double margin = 16f;
-        double unit = (mainStage.getHeight() - (14 * margin)) / puzzleSize;
 
-        Rectangle recMove = new Rectangle(15*unit + (margin/15), 0.5*unit + (margin/16), 2*unit,unit);
+        double margin = 16f;
+        double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
+        double gameplayAreaSize = (puzzleSize * unit) + (2 * margin);
+
+        Rectangle recMove = new Rectangle(mainStage.getWidth() - gameplayAreaSize - (4 * margin), 1.5f * unit);
+        // Rectangle recMove = new Rectangle(15*unit + (margin/15), 0.5*unit + (margin/16), 2*unit,unit);
         // Rectangle recMove = new Rectangle((5 * unit) + 32f, 0.5f*unit + 16f, 2 * unit, unit);
         
         recMove.setFill(Color.rgb(222, 152, 87));
@@ -81,9 +84,9 @@ public class FifteenPuzzle extends Application {
 
 
         Label moveCounter = new Label(Integer.toString(innerPuzzle.getMoveCounter()));
-            moveCounter.setScaleX(unit / 20);
-            moveCounter.setScaleY(unit / 20);
-            moveCounter.setTextFill(Color.BLACK);
+        moveCounter.setScaleX(unit / 20);
+        moveCounter.setScaleY(unit / 20);
+        moveCounter.setTextFill(Color.BLACK);
 
         // Label moveText = new Label("Move:");
         //     moveText.getChildren().add( moveText);
@@ -92,6 +95,9 @@ public class FifteenPuzzle extends Application {
         //     moveText.setTextFill(Color.BLACK);
 
         StackPane movee = new StackPane(recMove, moveCounter);
+        movee.setTranslateX(gameplayAreaSize + margin);
+        movee.setTranslateY(2 * margin);
+
         moveCounterGroup.getChildren().add(movee);
         // root.getChildren().add(recMove); 
     }
@@ -103,7 +109,7 @@ public class FifteenPuzzle extends Application {
         double margin = 16f;
         double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
         
-        // Rectangle latar = new Rectangle(margin, margin, puzzleSize * unit, puzzleSize * unit);
+        // Rectangle latar = new Rectangle((puzzleSize * unit) + (2 * margin), (puzzleSize * unit) + (2 * margin));
         // latar.setFill(Color.BLACK);
         // tileGroup.getChildren().add(latar);
                 
