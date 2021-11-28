@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,6 +24,10 @@ public class FifteenPuzzle extends Application {
     private Group moveCounterGroup;
     private Button resetButton;
 
+    private final Color tileColor = Color.valueOf("#4D4D56");
+    private final Color backgroundColor = Color.valueOf("#F4C3C2");
+    private final Color textColor = backgroundColor;
+
     private InnerPuzzle innerPuzzle;
 
     @Override
@@ -30,7 +36,7 @@ public class FifteenPuzzle extends Application {
 
         Group root = new Group();
         Scene scene = new Scene(root, 1280, 720);
-        scene.setFill(Color.rgb(114, 54, 90));
+        scene.setFill(backgroundColor);
         mainStage.setScene(scene);
         mainStage.setHeight(scene.getHeight());
         // mainStage.setResizable(false);
@@ -79,14 +85,12 @@ public class FifteenPuzzle extends Application {
         // Rectangle recMove = new Rectangle(15*unit + (margin/15), 0.5*unit + (margin/16), 2*unit,unit);
         // Rectangle recMove = new Rectangle((5 * unit) + 32f, 0.5f*unit + 16f, 2 * unit, unit);
         
-        recMove.setFill(Color.rgb(222, 152, 87));
-        recMove.setStroke(Color.BLACK);
+        recMove.setFill(tileColor);
 
 
         Label moveCounter = new Label(Integer.toString(innerPuzzle.getMoveCounter()));
-        moveCounter.setScaleX(unit / 20);
-        moveCounter.setScaleY(unit / 20);
-        moveCounter.setTextFill(Color.BLACK);
+        moveCounter.setFont(Font.font("Calibri", FontWeight.BLACK, unit / 2));
+        moveCounter.setTextFill(textColor);
 
         // Label moveText = new Label("Move:");
         //     moveText.getChildren().add( moveText);
@@ -120,13 +124,13 @@ public class FifteenPuzzle extends Application {
 
                 final int row = i, col = j;
                 Rectangle rec = new Rectangle(unit - (margin/2), unit - (margin/2));
-                rec.setFill(Color.rgb(222, 152, 87));
+                rec.setFill(tileColor);
                 rec.setArcHeight(margin);
                 rec.setArcWidth(margin);
 
                 Label label = new Label(Integer.toString(innerPuzzle.getGrid(i, j)));
-                label.setScaleX(unit / 25);
-                label.setScaleY(unit / 25);
+                label.setFont(Font.font("Calibri", FontWeight.BLACK, unit / 2));
+                label.setTextFill(textColor);
 
                 StackPane tile = new StackPane(rec, label);
                 tile.setOnMouseClicked(mouseEvent -> onGridClick(col, row));
@@ -138,16 +142,8 @@ public class FifteenPuzzle extends Application {
         }
 
         if (innerPuzzle.isSolved()) { 
-            Rectangle background = new Rectangle(puzzleSize * unit + (2 * margin), puzzleSize * unit + (2 * margin));
-            background.setFill(Color.BLACK);
-            background.setOpacity(0.3f);
-
-            Label finishLabel = new Label(Integer.toString(innerPuzzle.getMoveCounter()) + " langkah");
-            finishLabel.setScaleX(unit / 25);
-            finishLabel.setScaleY(unit / 25);
-            finishLabel.setTextFill(Color.BLACK);
-
-            StackPane cover = new StackPane(background, finishLabel);
+            Rectangle cover = new Rectangle(puzzleSize * unit + (2 * margin), puzzleSize * unit + (2 * margin));
+            cover.setOpacity(0f);
             tileGroup.getChildren().add(cover);
         }
     }
