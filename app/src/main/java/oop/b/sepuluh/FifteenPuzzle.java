@@ -8,8 +8,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
 import javafx.scene.layout.StackPane;
 
 public class FifteenPuzzle extends Application {
@@ -19,6 +21,7 @@ public class FifteenPuzzle extends Application {
     private Group tileGroup;
     private Group moveCounterGroup;
     private Button resetButton;
+   
 
     private final Color tileColor = Color.valueOf("#4D4D56");
     private final Color backgroundColor = Color.valueOf("#F4C3C2");
@@ -31,8 +34,10 @@ public class FifteenPuzzle extends Application {
         innerPuzzle = new InnerPuzzle(puzzleSize);
         mainStage = stage;
 
+        
         Group root = new Group();
         Scene scene = new Scene(root, 1280, 720);
+        // Text text = new Text();
         scene.setFill(backgroundColor);
 
         mainStage.setScene(scene);
@@ -44,6 +49,7 @@ public class FifteenPuzzle extends Application {
         tileGroup = new Group();
         moveCounterGroup = new Group();
         resetButton = new Button("Reset");
+        
 
         root.getChildren().addAll(tileGroup, moveCounterGroup, resetButton);
         drawComponents();
@@ -54,9 +60,10 @@ public class FifteenPuzzle extends Application {
         drawGrid();
         drawResetButton();
         drawMoveCounter();
+       
     }
 
-    public void drawResetButton(){
+    public void drawResetButton() {
         double margin = 16f;
         double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
 
@@ -68,30 +75,36 @@ public class FifteenPuzzle extends Application {
         resetButton.setOnAction((event) -> onResetClick());
     }
 
-    private void onResetClick(){
+    private void onResetClick() {
         innerPuzzle = new InnerPuzzle(puzzleSize);
         drawComponents();
     }
 
-    public void drawMoveCounter(){
+    // public void textMove() {
+        
+    // }
+
+    public void drawMoveCounter() {
         moveCounterGroup.getChildren().clear();
 
         double margin = 16f;
         double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
-        double gameplayAreaSize = (puzzleSize * unit) + (2 * margin);
+        double gameplayAreaSize = (puzzleSize * unit) + (8 * margin);
 
-        Rectangle recMove = new Rectangle(mainStage.getWidth() - gameplayAreaSize - (4 * margin), 1.5f * unit);
-        recMove.setFill(tileColor);
-
+        Rectangle recMove = new Rectangle(mainStage.getWidth() - gameplayAreaSize - (9 * margin), 1.2f * unit);
+        recMove.setFill(Color.valueOf("#DF8080"));
+        recMove.setArcWidth(50.0);
+        recMove.setArcHeight(50.0);
 
         Label moveCounter = new Label(Integer.toString(innerPuzzle.getMoveCounter()));
-        moveCounter.setFont(Font.font("Calibri", FontWeight.BLACK, unit / 2));
-        moveCounter.setTextFill(textColor);
+        moveCounter.setFont(Font.font("Calibri", FontWeight.BOLD, unit / 2));
+        moveCounter.setTextFill(Color.WHITE);
 
         StackPane movePane = new StackPane(recMove, moveCounter);
         movePane.setTranslateX(gameplayAreaSize + margin);
-        movePane.setTranslateY(2 * margin);
+        movePane.setTranslateY(7 * margin);
 
+        
         moveCounterGroup.getChildren().add(movePane);
     }
 
@@ -101,12 +114,13 @@ public class FifteenPuzzle extends Application {
         double margin = 16f;
         double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
 
-        for (int i = 0; i < puzzleSize; i++){
-            for (int j = 0; j < puzzleSize; j++){
-                if (innerPuzzle.getGrid(i, j) == 0) continue;
+        for (int i = 0; i < puzzleSize; i++) {
+            for (int j = 0; j < puzzleSize; j++) {
+                if (innerPuzzle.getGrid(i, j) == 0)
+                    continue;
 
                 final int row = i, col = j;
-                Rectangle rec = new Rectangle(unit - (margin/2), unit - (margin/2));
+                Rectangle rec = new Rectangle(unit - (margin / 2), unit - (margin / 2));
                 rec.setFill(tileColor);
                 rec.setArcHeight(margin);
                 rec.setArcWidth(margin);
@@ -124,21 +138,21 @@ public class FifteenPuzzle extends Application {
             }
         }
 
-        if (innerPuzzle.isSolved()) { 
+        if (innerPuzzle.isSolved()) {
             Rectangle cover = new Rectangle(puzzleSize * unit + (2 * margin), puzzleSize * unit + (2 * margin));
             cover.setOpacity(0f);
             tileGroup.getChildren().add(cover);
         }
     }
 
-    private void onGridClick(int col, int row){
+    private void onGridClick(int col, int row) {
         if (innerPuzzle.onClick(col, row)) {
             drawComponents();
         }
     }
 
     public static void main(String[] args) {
-        if(args.length == 1) 
+        if (args.length == 1)
             puzzleSize = Integer.parseInt(args[0]);
 
         launch();
