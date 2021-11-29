@@ -56,22 +56,35 @@ public class FifteenPuzzle extends Application {
         innerPuzzle = new InnerPuzzle(puzzleSize);
         drawGrid();
 
-        // Rectangle recMove = new Rectangle((5 * unit) + 32f, 0.5f*unit + 16f, 2 * unit, unit);
-        // recMove.setFill(Color.GREY);
-        // recMove.setStroke(Color.BLACK);
-        // root.getChildren().add(recMove);
+        resetButton = new Button("Reset");
+        root.getChildren().add(resetButton);
+        innerPuzzle = new InnerPuzzle(puzzleSize);
+        drawGrid();
 
-        // Rectangle recReset = new Rectangle((5 * unit) + 32f, (2.5f * unit) + 16f, 2 * unit, unit);
-        // recReset.setFill(Color.GREY);
-        // recReset.setStroke(Color.BLACK);
-        // root.getChildren().add(recReset);
         stage.show();
     }
 
     public void drawComponents() {
         drawGrid();
-        // drawResetButton();
+        drawResetButton();
         drawMoveCounter();
+    }
+
+    public void drawResetButton(){
+        double margin = 16f;
+        double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
+
+        resetButton.setStyle("-fx-background-color: #df8080; -fx-text-fill: #ffffff; -fx-background-radius: 8; -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );");
+        resetButton.setFont(Font.font("Calibri", FontWeight.BOLD, unit / 2));
+        resetButton.setTranslateX((5 * unit) + margin);
+        resetButton.setTranslateY((2.25 * unit) + margin);
+
+        resetButton.setOnAction((event) -> onResetClick());
+    }
+
+    private void onResetClick(){
+        innerPuzzle = new InnerPuzzle(puzzleSize);
+        drawComponents();
     }
 
     public void drawMoveCounter(){
