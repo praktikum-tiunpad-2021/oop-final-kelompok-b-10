@@ -1,6 +1,7 @@
 package oop.b.sepuluh;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Group;
@@ -10,7 +11,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 
 public class FifteenPuzzle extends Application {
@@ -44,6 +46,7 @@ public class FifteenPuzzle extends Application {
 
         scene.widthProperty().addListener(listener -> drawComponents());
         scene.heightProperty().addListener(listener -> drawComponents());
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, keyboardEventHandler);
 
         tileGroup = new Group();
         moveCounterGroup = new Group();
@@ -139,6 +142,16 @@ public class FifteenPuzzle extends Application {
             drawComponents();
         }
     }
+
+    EventHandler<KeyEvent> keyboardEventHandler = new EventHandler<KeyEvent>() { 
+        @Override 
+        public void handle(KeyEvent e) {
+            if (e.getCode().ordinal() >= KeyCode.LEFT.ordinal() 
+                && e.getCode().ordinal() <= KeyCode.DOWN.ordinal() 
+                && innerPuzzle.onKeyPressed(e.getCode())
+            ) drawComponents();
+        } 
+     };  
 
     public static void main(String[] args) {
         if (args.length == 1)

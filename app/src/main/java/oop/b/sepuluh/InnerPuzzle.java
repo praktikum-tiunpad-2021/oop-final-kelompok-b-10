@@ -3,6 +3,8 @@ package oop.b.sepuluh;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javafx.scene.input.KeyCode;
+
 public class InnerPuzzle {
   private ArrayList<ArrayList<Integer>> grid;
   private int moveCounter;
@@ -29,6 +31,15 @@ public class InnerPuzzle {
       if (boxX == zeroLocationX + 1) return moveZeroRight();
       if (boxX == zeroLocationX - 1) return moveZeroLeft();
     }
+    return false;
+  }
+
+  public boolean onKeyPressed(KeyCode code){
+    if (isSolved()) return false;
+    if (code == KeyCode.UP) return moveZeroUp();
+    if (code == KeyCode.DOWN) return moveZeroDown();
+    if (code == KeyCode.RIGHT) return moveZeroRight();
+    if (code == KeyCode.LEFT) return moveZeroLeft();
     return false;
   }
 
