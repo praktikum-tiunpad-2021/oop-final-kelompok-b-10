@@ -73,12 +73,14 @@ public class FifteenPuzzle extends Application {
     public void drawResetButton(){
         double margin = 16f;
         double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
-
+        double gameplayAreaSize = (puzzleSize * unit) + (2 * margin);
+        
+        resetButton.setTranslateX((gameplayAreaSize + mainStage.getWidth() - resetButton.getWidth()) / 2);
+        resetButton.setTranslateY(2 * unit);
+        
         resetButton.setStyle("-fx-background-color: #df8080; -fx-text-fill: #ffffff; -fx-background-radius: 8; -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );");
         resetButton.setFont(Font.font("Calibri", FontWeight.BOLD, unit / 2));
-        resetButton.setTranslateX((5 * unit) + margin);
-        resetButton.setTranslateY((2.25 * unit) + margin);
-
+        
         resetButton.setOnAction((event) -> onResetClick());
     }
 
