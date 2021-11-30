@@ -71,7 +71,7 @@ public class FifteenPuzzle extends Application {
         double gameplayAreaSize = (puzzleSize * unit) + (2 * margin);
         
         resetButton.setTranslateX((gameplayAreaSize + mainStage.getWidth() - resetButton.getWidth()) / 2);
-        resetButton.setTranslateY(2 * unit);
+        resetButton.setTranslateY(2.5 * unit);
         
         resetButton.setStyle("-fx-background-color: #df8080; -fx-text-fill: #ffffff; -fx-background-radius: 8; -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );");
         resetButton.setFont(Font.font("Calibri", FontWeight.BOLD, unit / 2));
@@ -91,7 +91,7 @@ public class FifteenPuzzle extends Application {
         double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
         double gameplayAreaSize = (puzzleSize * unit) + (8 * margin);
 
-        Rectangle recMove = new Rectangle(mainStage.getWidth() - gameplayAreaSize - (9 * margin), 1.2f * unit);
+        Rectangle recMove = new Rectangle(mainStage.getWidth() - gameplayAreaSize - (9 * margin), 1.1f * unit);
         recMove.setFill(Color.valueOf("#DF8080"));
         recMove.setArcWidth(50.0);
         recMove.setArcHeight(50.0);
@@ -102,11 +102,25 @@ public class FifteenPuzzle extends Application {
 
         StackPane movePane = new StackPane(recMove, moveCounter);
         movePane.setTranslateX(gameplayAreaSize + margin);
-        movePane.setTranslateY(7 * margin);
+        movePane.setTranslateY(9 * margin);
 
+        Rectangle recText = new Rectangle(mainStage.getWidth() - gameplayAreaSize - (9 * margin), 1f * unit);
+        recText.setFill(Color.TRANSPARENT);
         
+        recText.setArcWidth(50.0);
+        recText.setArcHeight(50.0);
+
+        Label textMove = new Label("Move");
+        textMove.setFont(Font.font("Calibri", FontWeight.BOLD, unit / 3));
+        textMove.setTextFill(Color.rgb(223, 128, 128));
+
+        StackPane textPane = new StackPane(recText, textMove);
+        textPane.setTranslateX(gameplayAreaSize + margin);
+        textPane.setTranslateY(1 * margin);
+
         moveCounterGroup.getChildren().add(movePane);
-    }
+        moveCounterGroup.getChildren().add(textPane);  
+     }
 
     public void drawGrid() {
         tileGroup.getChildren().clear();
