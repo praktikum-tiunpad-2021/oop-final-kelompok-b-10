@@ -8,7 +8,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -80,10 +79,6 @@ public class FifteenPuzzle extends Application {
         drawComponents();
     }
 
-    // public void textMove() {
-        
-    // }
-
     public void drawMoveCounter() {
         moveCounterGroup.getChildren().clear();
 
@@ -136,12 +131,6 @@ public class FifteenPuzzle extends Application {
 
                 tileGroup.getChildren().add(tile);
             }
-        }
-
-        if (innerPuzzle.isSolved()) {
-            Rectangle cover = new Rectangle(puzzleSize * unit + (2 * margin), puzzleSize * unit + (2 * margin));
-            cover.setOpacity(0f);
-            tileGroup.getChildren().add(cover);
         }
     }
 

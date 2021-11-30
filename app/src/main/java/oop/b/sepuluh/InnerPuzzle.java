@@ -20,6 +20,7 @@ public class InnerPuzzle {
    * true jika merupakan move legal (persis bersebelahan, tidak out of bounds), selain itu false
    */
   public boolean onClick(int boxX, int boxY){
+    if (isSolved()) return false;
     if(boxX == zeroLocationX){
       if (boxY == zeroLocationY + 1) return moveZeroDown();
       if (boxY == zeroLocationY - 1) return moveZeroUp();
