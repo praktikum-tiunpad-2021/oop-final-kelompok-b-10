@@ -24,7 +24,10 @@ This repository is a final project (Java GUI) from Object-Oriented Programming C
 
 - **[Sprint 2](changelog/sprint-2.md) - (date from 24/11/2021 to 30/11/2021)** 
    - Integrasi Logika Puzzle ke dalam UI
-   - Menyelesaikan UI 
+   - Sudah mengatur tampilan dari warna, font,letak
+   - Membuat button reset
+   - Membuat move counter
+   - Membuat fitur biar bisa main pakai keyboard
    
 - **[Sprint 3](changelog/sprint-3.md) - (date from 01/12/2021 to 07/12/2021)** 
    - Error Handling 
