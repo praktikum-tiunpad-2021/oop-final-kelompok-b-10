@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 public class FifteenPuzzle extends Application {
@@ -25,10 +26,6 @@ public class FifteenPuzzle extends Application {
     private Group moveCounterGroup;
     private Button resetButton;
 
-    private final Color tileColor = Color.valueOf("#4D4D56");
-    private final Color backgroundColor = Color.valueOf("#F4C3C2");
-    private final Color textColor = Color.WHITE;
-    private final Color secondaryColor = Color.valueOf("#DF8080");
     private Font font;
 
     private final double margin = 16f;
@@ -52,9 +49,9 @@ public class FifteenPuzzle extends Application {
         innerPuzzle = new InnerPuzzle(puzzleSize);
         mainStage = stage;
 
-        Group root = new Group();
+        Pane root = new Pane();
         Scene scene = new Scene(root, 1280, 720);
-        scene.setFill(backgroundColor);
+        scene.getStylesheets().add("oop/b/sepuluh/style.css");
 
         mainStage.setScene(scene);
         mainStage.setHeight(scene.getHeight());
@@ -86,9 +83,7 @@ public class FifteenPuzzle extends Application {
         resetButton.setTranslateX((gameplayAreaSize + mainStage.getWidth() - resetButton.getWidth()) / 2);
         resetButton.setTranslateY(2.5 * unit);
 
-        resetButton.setStyle("-fx-background-color: #df8080; -fx-text-fill: #ffffff; -fx-background-radius: 8; -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );");
-        resetButton.setFont(Font.font("Calibri", FontWeight.BOLD, unit / 2));
-
+        resetButton.setFont(font);
         resetButton.setOnAction((event) -> onResetClick());
     }
 
@@ -101,13 +96,10 @@ public class FifteenPuzzle extends Application {
         moveCounterGroup.getChildren().clear();
 
         Rectangle recMove = new Rectangle(mainStage.getWidth() - gameplayAreaSize - (9 * margin), 1.1f * unit);
-        recMove.setFill(secondaryColor);
-        recMove.setArcWidth(50.0);
-        recMove.setArcHeight(50.0);
+        recMove.getStyleClass().add("move-counter");
 
         Label moveCounter = new Label(Integer.toString(innerPuzzle.getMoveCounter()));
         moveCounter.setFont(font);
-        moveCounter.setTextFill(textColor);
 
         StackPane movePane = new StackPane(recMove, moveCounter);
         movePane.setTranslateX(gameplayAreaSize + margin);
@@ -116,12 +108,9 @@ public class FifteenPuzzle extends Application {
         Rectangle recText = new Rectangle(mainStage.getWidth() - gameplayAreaSize - (9 * margin), 1f * unit);
         recText.setFill(Color.TRANSPARENT);
 
-        recText.setArcWidth(50.0);
-        recText.setArcHeight(50.0);
-
         Label textMove = new Label("Move");
         textMove.setFont(font);
-        textMove.setTextFill(secondaryColor);
+        textMove.getStyleClass().addAll("move-label");
 
         StackPane textPane = new StackPane(recText, textMove);
         textPane.setTranslateX(gameplayAreaSize + margin);
@@ -149,13 +138,10 @@ public class FifteenPuzzle extends Application {
 
                 final int row = i, col = j;
                 Rectangle rec = new Rectangle(unit - (margin / 2), unit - (margin / 2));
-                rec.setFill(tileColor);
-                rec.setArcHeight(margin);
-                rec.setArcWidth(margin);
+                rec.getStyleClass().add("tile");
 
                 Label label = new Label(Integer.toString(innerPuzzle.getGrid(i, j)));
                 label.setFont(font);
-                label.setTextFill(textColor);
 
                 StackPane tile = new StackPane(rec, label);
                 tile.setOnMouseClicked(mouseEvent -> onGridClick(col, row));
