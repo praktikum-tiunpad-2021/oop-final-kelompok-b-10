@@ -2,6 +2,7 @@ package oop.b.sepuluh;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Group;
@@ -13,13 +14,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
 public class FifteenPuzzle extends Application {
     private static int puzzleSize = 4;
 
     private Stage mainStage;
-    private Group tileGroup;
+    private GridPane tileGroup;
     private Group moveCounterGroup;
     private Button resetButton;
 
@@ -61,7 +63,7 @@ public class FifteenPuzzle extends Application {
         mainStage.heightProperty().addListener(listener -> drawComponents());
         mainStage.addEventFilter(KeyEvent.KEY_PRESSED, keyboardEventHandler);
 
-        tileGroup = new Group();
+        initGrid();
         moveCounterGroup = new Group();
         resetButton = new Button("Reset");
 
@@ -129,6 +131,14 @@ public class FifteenPuzzle extends Application {
         moveCounterGroup.getChildren().add(textPane);  
     }
 
+    public void initGrid() {
+        tileGroup = new GridPane();
+
+        tileGroup.setPadding(new Insets(margin, margin, margin, margin));
+        tileGroup.setHgap(margin / 2);
+        tileGroup.setVgap(margin / 2);
+    }
+
     public void drawGrid() {
         tileGroup.getChildren().clear();
 
@@ -149,10 +159,8 @@ public class FifteenPuzzle extends Application {
 
                 StackPane tile = new StackPane(rec, label);
                 tile.setOnMouseClicked(mouseEvent -> onGridClick(col, row));
-                tile.setTranslateX((j * unit) + margin);
-                tile.setTranslateY((i * unit) + margin);
 
-                tileGroup.getChildren().add(tile);
+                tileGroup.add(tile, col, row);
             }
         }
     }
