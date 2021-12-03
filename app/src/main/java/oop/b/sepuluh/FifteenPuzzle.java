@@ -15,6 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -49,9 +50,12 @@ public class FifteenPuzzle extends Application {
         innerPuzzle = new InnerPuzzle(puzzleSize);
         mainStage = stage;
 
-        HBox root = new HBox(margin / 2);
+        HBox root = new HBox();
         Scene scene = new Scene(root, 1280, 720);
         scene.getStylesheets().add("oop/b/sepuluh/style.css");
+
+        mainStage.setMinHeight(480);
+        mainStage.setMinWidth(480 * 16 / 9);
 
         mainStage.setScene(scene);
         mainStage.setHeight(scene.getHeight());
@@ -61,14 +65,17 @@ public class FifteenPuzzle extends Application {
         mainStage.addEventFilter(KeyEvent.KEY_PRESSED, keyboardEventHandler);
 
         initGrid();
-        root.getChildren().addAll(tileGroup, createStatsPane());
+        initStatsPane();
+
+        root.getChildren().addAll(tileGroup, statsPane);
+        HBox.setHgrow(statsPane, Priority.ALWAYS);
 
         drawComponents();
         stage.show();
     }
 
-    public VBox createStatsPane() {
-        moveCounterGroup = new VBox(10);
+    public void initStatsPane() {
+        moveCounterGroup = new VBox(margin);
         moveCounterGroup.setAlignment(Pos.BASELINE_CENTER);
 
         resetButton = new Button("Reset");
@@ -76,12 +83,10 @@ public class FifteenPuzzle extends Application {
 
         statsPane = new VBox(moveCounterGroup, resetButton);
         statsPane.setAlignment(Pos.TOP_CENTER);
-
-        return statsPane;
     }
 
     public void drawComponents() {
-        unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
+        unit = mainStage.getHeight() / 4;
         font = Font.font("Calibri", FontWeight.BOLD, unit / 2);
 
         statsPane.setSpacing(unit * 0.75f);
@@ -103,7 +108,7 @@ public class FifteenPuzzle extends Application {
     public void drawMoveCounter() {
         moveCounterGroup.getChildren().clear();
 
-        Rectangle recMove = new Rectangle(mainStage.getWidth() - mainStage.getHeight() - margin, 1.1f * unit);
+        Rectangle recMove = new Rectangle((mainStage.getWidth() - mainStage.getHeight()) * 0.75f, unit);
         recMove.getStyleClass().add("move-counter");
 
         Label moveCounter = new Label(Integer.toString(innerPuzzle.getMoveCounter()));
@@ -128,6 +133,7 @@ public class FifteenPuzzle extends Application {
 
     public void drawGrid() {
         tileGroup.getChildren().clear();
+        double tileUnit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
 
         for (int i = 0; i < puzzleSize; i++) {
             for (int j = 0; j < puzzleSize; j++) {
@@ -135,11 +141,11 @@ public class FifteenPuzzle extends Application {
                     continue;
 
                 final int row = i, col = j;
-                Rectangle rec = new Rectangle(unit - (margin / 2), unit - (margin / 2));
+                Rectangle rec = new Rectangle(tileUnit - (margin / 2), tileUnit - (margin / 2));
                 rec.getStyleClass().add("tile");
 
                 Label label = new Label(Integer.toString(innerPuzzle.getGrid(i, j)));
-                label.setFont(font);
+                label.setFont(Font.font("Calibri", FontWeight.BOLD, tileUnit / 2));
 
                 StackPane tile = new StackPane(rec, label);
                 tile.setOnMouseClicked(mouseEvent -> onGridClick(col, row));
