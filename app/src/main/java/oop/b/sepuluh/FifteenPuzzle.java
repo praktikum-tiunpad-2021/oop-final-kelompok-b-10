@@ -3,34 +3,34 @@ package oop.b.sepuluh;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public class FifteenPuzzle extends Application {
     private static int puzzleSize = 4;
 
     private Stage mainStage;
     private GridPane tileGroup;
-    private Group moveCounterGroup;
-    private Button resetButton;
 
-    private Font font;
+    private VBox statsPane;
+    private VBox moveCounterGroup;
+    private Button resetButton;
 
     private final double margin = 16f;
     private double unit;
-    private double gameplayAreaSize;
+    private Font font;
 
     private InnerPuzzle innerPuzzle;
 
@@ -49,7 +49,7 @@ public class FifteenPuzzle extends Application {
         innerPuzzle = new InnerPuzzle(puzzleSize);
         mainStage = stage;
 
-        Pane root = new Pane();
+        HBox root = new HBox(margin / 2);
         Scene scene = new Scene(root, 1280, 720);
         scene.getStylesheets().add("oop/b/sepuluh/style.css");
 
@@ -61,18 +61,30 @@ public class FifteenPuzzle extends Application {
         mainStage.addEventFilter(KeyEvent.KEY_PRESSED, keyboardEventHandler);
 
         initGrid();
-        moveCounterGroup = new Group();
-        resetButton = new Button("Reset");
+        root.getChildren().addAll(tileGroup, createStatsPane());
 
-        root.getChildren().addAll(tileGroup, moveCounterGroup, resetButton);
         drawComponents();
         stage.show();
     }
 
+    public VBox createStatsPane() {
+        moveCounterGroup = new VBox(10);
+        moveCounterGroup.setAlignment(Pos.BASELINE_CENTER);
+
+        resetButton = new Button("Reset");
+        resetButton.setOnAction((event) -> onResetClick());
+
+        statsPane = new VBox(moveCounterGroup, resetButton);
+        statsPane.setAlignment(Pos.TOP_CENTER);
+
+        return statsPane;
+    }
+
     public void drawComponents() {
         unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
-        gameplayAreaSize = (puzzleSize * unit) + (8 * margin);
         font = Font.font("Calibri", FontWeight.BOLD, unit / 2);
+
+        statsPane.setSpacing(unit * 0.75f);
 
         drawGrid();
         drawResetButton();
@@ -80,11 +92,7 @@ public class FifteenPuzzle extends Application {
     }
 
     public void drawResetButton() {
-        resetButton.setTranslateX((gameplayAreaSize + mainStage.getWidth() - resetButton.getWidth()) / 2);
-        resetButton.setTranslateY(2.5 * unit);
-
         resetButton.setFont(font);
-        resetButton.setOnAction((event) -> onResetClick());
     }
 
     private void onResetClick() {
@@ -95,29 +103,19 @@ public class FifteenPuzzle extends Application {
     public void drawMoveCounter() {
         moveCounterGroup.getChildren().clear();
 
-        Rectangle recMove = new Rectangle(mainStage.getWidth() - gameplayAreaSize - (9 * margin), 1.1f * unit);
+        Rectangle recMove = new Rectangle(mainStage.getWidth() - mainStage.getHeight() - margin, 1.1f * unit);
         recMove.getStyleClass().add("move-counter");
 
         Label moveCounter = new Label(Integer.toString(innerPuzzle.getMoveCounter()));
         moveCounter.setFont(font);
 
         StackPane movePane = new StackPane(recMove, moveCounter);
-        movePane.setTranslateX(gameplayAreaSize + margin);
-        movePane.setTranslateY(9 * margin);
-
-        Rectangle recText = new Rectangle(mainStage.getWidth() - gameplayAreaSize - (9 * margin), 1f * unit);
-        recText.setFill(Color.TRANSPARENT);
 
         Label textMove = new Label("Move");
         textMove.setFont(font);
         textMove.getStyleClass().addAll("move-label");
 
-        StackPane textPane = new StackPane(recText, textMove);
-        textPane.setTranslateX(gameplayAreaSize + margin);
-        textPane.setTranslateY(1 * margin);
-
-        moveCounterGroup.getChildren().add(movePane);
-        moveCounterGroup.getChildren().add(textPane);  
+        moveCounterGroup.getChildren().addAll(textMove, movePane);
     }
 
     public void initGrid() {
