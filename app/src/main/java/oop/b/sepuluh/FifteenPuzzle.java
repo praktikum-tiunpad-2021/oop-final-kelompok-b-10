@@ -52,7 +52,7 @@ public class FifteenPuzzle extends Application {
 
         HBox root = new HBox();
         Scene scene = new Scene(root, 1280, 720);
-        scene.getStylesheets().add("oop/b/sepuluh/style.css");
+        // scene.getStylesheets().add("oop/b/sepuluh/style.css");
 
         mainStage.setMinHeight(480);
         mainStage.setMinWidth(480 * 16 / 9);
@@ -162,8 +162,10 @@ public class FifteenPuzzle extends Application {
     }
 
     public static void main(String[] args) {
-        if (args.length == 1)
-            puzzleSize = Integer.parseInt(args[0]);
+        if (args.length == 1){
+            int temp = Integer.parseInt(args[0]);
+            if (temp >= 2 && temp <= 8) puzzleSize = temp; 
+        }
 
         launch();
     }
