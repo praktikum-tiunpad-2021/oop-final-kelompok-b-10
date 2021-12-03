@@ -22,7 +22,6 @@ public class FifteenPuzzle extends Application {
     private Group tileGroup;
     private Group moveCounterGroup;
     private Button resetButton;
-   
 
     private final Color tileColor = Color.valueOf("#4D4D56");
     private final Color backgroundColor = Color.valueOf("#F4C3C2");
@@ -30,15 +29,23 @@ public class FifteenPuzzle extends Application {
 
     private InnerPuzzle innerPuzzle;
 
+    EventHandler<KeyEvent> keyboardEventHandler = new EventHandler<KeyEvent>() { 
+        @Override 
+        public void handle(KeyEvent e) {
+            if (e.getCode().ordinal() >= KeyCode.LEFT.ordinal() 
+                && e.getCode().ordinal() <= KeyCode.DOWN.ordinal() 
+                && innerPuzzle.onKeyPressed(e.getCode())
+            ) drawComponents();
+        }
+    };
+
     @Override
     public void start(Stage stage) {
         innerPuzzle = new InnerPuzzle(puzzleSize);
         mainStage = stage;
 
-        
         Group root = new Group();
         Scene scene = new Scene(root, 1280, 720);
-        // Text text = new Text();
         scene.setFill(backgroundColor);
 
         mainStage.setScene(scene);
@@ -51,7 +58,6 @@ public class FifteenPuzzle extends Application {
         tileGroup = new Group();
         moveCounterGroup = new Group();
         resetButton = new Button("Reset");
-        
 
         root.getChildren().addAll(tileGroup, moveCounterGroup, resetButton);
         drawComponents();
@@ -62,20 +68,19 @@ public class FifteenPuzzle extends Application {
         drawGrid();
         drawResetButton();
         drawMoveCounter();
-       
     }
 
     public void drawResetButton() {
         double margin = 16f;
         double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
         double gameplayAreaSize = (puzzleSize * unit) + (2 * margin);
-        
+
         resetButton.setTranslateX((gameplayAreaSize + mainStage.getWidth() - resetButton.getWidth()) / 2);
         resetButton.setTranslateY(2.5 * unit);
-        
+
         resetButton.setStyle("-fx-background-color: #df8080; -fx-text-fill: #ffffff; -fx-background-radius: 8; -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );");
         resetButton.setFont(Font.font("Calibri", FontWeight.BOLD, unit / 2));
-        
+
         resetButton.setOnAction((event) -> onResetClick());
     }
 
@@ -106,7 +111,7 @@ public class FifteenPuzzle extends Application {
 
         Rectangle recText = new Rectangle(mainStage.getWidth() - gameplayAreaSize - (9 * margin), 1f * unit);
         recText.setFill(Color.TRANSPARENT);
-        
+
         recText.setArcWidth(50.0);
         recText.setArcHeight(50.0);
 
@@ -120,7 +125,7 @@ public class FifteenPuzzle extends Application {
 
         moveCounterGroup.getChildren().add(movePane);
         moveCounterGroup.getChildren().add(textPane);  
-     }
+    }
 
     public void drawGrid() {
         tileGroup.getChildren().clear();
@@ -158,16 +163,6 @@ public class FifteenPuzzle extends Application {
             drawComponents();
         }
     }
-
-    EventHandler<KeyEvent> keyboardEventHandler = new EventHandler<KeyEvent>() { 
-        @Override 
-        public void handle(KeyEvent e) {
-            if (e.getCode().ordinal() >= KeyCode.LEFT.ordinal() 
-                && e.getCode().ordinal() <= KeyCode.DOWN.ordinal() 
-                && innerPuzzle.onKeyPressed(e.getCode())
-            ) drawComponents();
-        } 
-     };  
 
     public static void main(String[] args) {
         if (args.length == 1)
