@@ -52,7 +52,7 @@ public class FifteenPuzzle extends Application {
 
         HBox root = new HBox();
         Scene scene = new Scene(root, 1280, 720);
-        // scene.getStylesheets().add("oop/b/sepuluh/style.css");
+        scene.getStylesheets().add("oop/b/sepuluh/style.css");
 
         mainStage.setMinHeight(480);
         mainStage.setMinWidth(480 * 16 / 9);
