@@ -148,6 +148,7 @@ public class FifteenPuzzle extends Application {
                 label.setFont(Font.font("Calibri", FontWeight.BOLD, tileUnit / 2));
 
                 StackPane tile = new StackPane(rec, label);
+                tile.getStyleClass().add("tile");
                 tile.setOnMouseClicked(mouseEvent -> onGridClick(col, row));
 
                 tileGroup.add(tile, col, row);

@@ -15,6 +15,12 @@
   -fx-fill: -fx-custom-tile-color;
   -fx-arc-width: 16px;
   -fx-arc-height: 16px;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 4, 0, 0, 1);
+}
+
+.tile:hover {
+  -fx-opacity: 0.85;
+  -fx-cursor: hand;
 }
 
 .label {
@@ -30,4 +36,9 @@
   -fx-text-fill: -fx-custom-font-color; 
   -fx-background-radius: 8; 
   -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 4, 0, 0, 1);
+}
+
+.button:hover {
+  -fx-opacity: 0.85;
+  -fx-cursor: hand;
 }
