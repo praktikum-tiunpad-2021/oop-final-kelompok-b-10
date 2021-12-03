@@ -25,7 +25,13 @@ public class FifteenPuzzle extends Application {
 
     private final Color tileColor = Color.valueOf("#4D4D56");
     private final Color backgroundColor = Color.valueOf("#F4C3C2");
-    private final Color textColor = backgroundColor;
+    private final Color textColor = Color.WHITE;
+    private final Color secondaryColor = Color.valueOf("#DF8080");
+    private Font font;
+
+    private final double margin = 16f;
+    private double unit;
+    private double gameplayAreaSize;
 
     private InnerPuzzle innerPuzzle;
 
@@ -51,9 +57,9 @@ public class FifteenPuzzle extends Application {
         mainStage.setScene(scene);
         mainStage.setHeight(scene.getHeight());
 
-        scene.widthProperty().addListener(listener -> drawComponents());
-        scene.heightProperty().addListener(listener -> drawComponents());
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, keyboardEventHandler);
+        mainStage.widthProperty().addListener(listener -> drawComponents());
+        mainStage.heightProperty().addListener(listener -> drawComponents());
+        mainStage.addEventFilter(KeyEvent.KEY_PRESSED, keyboardEventHandler);
 
         tileGroup = new Group();
         moveCounterGroup = new Group();
@@ -65,16 +71,16 @@ public class FifteenPuzzle extends Application {
     }
 
     public void drawComponents() {
+        unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
+        gameplayAreaSize = (puzzleSize * unit) + (8 * margin);
+        font = Font.font("Calibri", FontWeight.BOLD, unit / 2);
+
         drawGrid();
         drawResetButton();
         drawMoveCounter();
     }
 
     public void drawResetButton() {
-        double margin = 16f;
-        double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
-        double gameplayAreaSize = (puzzleSize * unit) + (2 * margin);
-
         resetButton.setTranslateX((gameplayAreaSize + mainStage.getWidth() - resetButton.getWidth()) / 2);
         resetButton.setTranslateY(2.5 * unit);
 
@@ -92,18 +98,14 @@ public class FifteenPuzzle extends Application {
     public void drawMoveCounter() {
         moveCounterGroup.getChildren().clear();
 
-        double margin = 16f;
-        double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
-        double gameplayAreaSize = (puzzleSize * unit) + (8 * margin);
-
         Rectangle recMove = new Rectangle(mainStage.getWidth() - gameplayAreaSize - (9 * margin), 1.1f * unit);
-        recMove.setFill(Color.valueOf("#DF8080"));
+        recMove.setFill(secondaryColor);
         recMove.setArcWidth(50.0);
         recMove.setArcHeight(50.0);
 
         Label moveCounter = new Label(Integer.toString(innerPuzzle.getMoveCounter()));
-        moveCounter.setFont(Font.font("Calibri", FontWeight.BOLD, unit / 2));
-        moveCounter.setTextFill(Color.WHITE);
+        moveCounter.setFont(font);
+        moveCounter.setTextFill(textColor);
 
         StackPane movePane = new StackPane(recMove, moveCounter);
         movePane.setTranslateX(gameplayAreaSize + margin);
@@ -116,8 +118,8 @@ public class FifteenPuzzle extends Application {
         recText.setArcHeight(50.0);
 
         Label textMove = new Label("Move");
-        textMove.setFont(Font.font("Calibri", FontWeight.BOLD, unit / 3));
-        textMove.setTextFill(Color.rgb(223, 128, 128));
+        textMove.setFont(font);
+        textMove.setTextFill(secondaryColor);
 
         StackPane textPane = new StackPane(recText, textMove);
         textPane.setTranslateX(gameplayAreaSize + margin);
@@ -129,9 +131,6 @@ public class FifteenPuzzle extends Application {
 
     public void drawGrid() {
         tileGroup.getChildren().clear();
-
-        double margin = 16f;
-        double unit = (mainStage.getHeight() - (4 * margin)) / puzzleSize;
 
         for (int i = 0; i < puzzleSize; i++) {
             for (int j = 0; j < puzzleSize; j++) {
@@ -145,7 +144,7 @@ public class FifteenPuzzle extends Application {
                 rec.setArcWidth(margin);
 
                 Label label = new Label(Integer.toString(innerPuzzle.getGrid(i, j)));
-                label.setFont(Font.font("Calibri", FontWeight.BLACK, unit / 2));
+                label.setFont(font);
                 label.setTextFill(textColor);
 
                 StackPane tile = new StackPane(rec, label);
