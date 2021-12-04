@@ -11,6 +11,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -53,7 +54,9 @@ public class FifteenPuzzle extends Application {
         HBox root = new HBox();
         Scene scene = new Scene(root, 1280, 720);
         scene.getStylesheets().add("oop/b/sepuluh/style.css");
-
+        
+        mainStage.setTitle("Fifteen Puzzle"); 
+        mainStage.getIcons().add(new Image("oop/b/sepuluh/icon.png"));
         mainStage.setMinHeight(480);
         mainStage.setMinWidth(480 * 16 / 9);
 
