@@ -4,7 +4,7 @@ This repository is a final project (Java GUI) from Object-Oriented Programming C
 
 [Challenge Guidelines](challenge-guideline.md)
 
-**Please create a description for this project here**
+**Fifteen Puzzle merupakan sebuah permainan puzzle berukuran 4x4. Di dalamnya berisikan angka 1-15 yang disusun secara acak dan terdapat sebuah ubin kosong. Puzzle ini dapat diselesaikan dengan mengurutkan angka-angka acak tersebut dari angka 1 sampai 15 dengan ubin kosong berada di sebelah pojok kanan bawah.**
 
 ## Credits
 | NPM           | Name        |
@@ -21,7 +21,6 @@ This repository is a final project (Java GUI) from Object-Oriented Programming C
    - Implementasi Logika Puzzle 
    - Implementasi wireFrame UI dan merancang gambaran mockup 
 
-
 - **[Sprint 2](changelog/sprint-2.md) - (date from 24/11/2021 to 30/11/2021)** 
    - Integrasi Logika Puzzle ke dalam UI
    - Sudah mengatur tampilan dari warna, font,letak
@@ -30,8 +29,8 @@ This repository is a final project (Java GUI) from Object-Oriented Programming C
    - Membuat fitur biar bisa main pakai keyboard
    
 - **[Sprint 3](changelog/sprint-3.md) - (date from 01/12/2021 to 07/12/2021)** 
-   - Error Handling 
-   - Trial Challenge 
+   - Error handling 
+   - Trial the app
    - Finishing
 
 ## Running The App
@@ -39,30 +38,33 @@ This repository is a final project (Java GUI) from Object-Oriented Programming C
 1. Compile dan jalankan project dengan menggunakan perintah :
 
  ```
- gradlew run
+ gradlew run (untuk ukuran default puzzle 4x4)
+ ```
+ 
+ ```
+ gradlew run --args='n' (untuk ukuran puzzle nxn, dimana n adalah 2-8)
  ```
 2. Tombol Keyword yang digunakan adalah sebagai berikut :
    Tombol `←`, `↓`, `→`, dan `↑` untuk menentukan arah pergerakan kotak kosong
-3. Jika ingin memainkannya hanya dengan mouse bisa
+3. Game ini pun bisa dimainkan hanya menggunakan mouse
 
 ## Classes Used
 
 1. **Fifteen Puzzle** - `FifteenPuzzle.java`
-   - Berisi logika-logika yang digunakan dalam game fifteen puzzle
-      
-2. **Inner Puzzle** - `InnerPuzzle`
    - Mengambil data dari Inner Puzzle untuk bisa ditampilkan
+      
+2. **Inner Puzzle** - `InnerPuzzle.java`
+   - Berisi logika-logika yang digunakan dalam game fifteen puzzle
    
 
-
-UML image here
+![](UML_15Puzzle.png)
 
 ## Notable Assumption and Design App Details
 
-- Rekomendasi ukuran game 2x2, 3x3, 4x4, 5x5, 6x6, 7x7, dan 8x8.
-- Program kita resizeable, namun disarankan window nya berbentuk segi pajang.
+- Rekomendasi ukuran game yaitu 2x2, 3x3, 4x4, 5x5, 6x6, 7x7, dan 8x8.
+- Program kita _resizeable_. Namun, disarankan window nya berbentuk persegi panjang.
 - Argumen int yang mungkin digunakan untuk menjalankan aplikasi adalah 2-8.
-- Game FifteenPuzzle ini memiliki Move Counter untuk menghitung berapa langkah yang telah dilakukan oleh pemain dalam menyelesaikan game.
+- Game FifteenPuzzle ini memiliki **Move Counter** untuk menghitung berapa langkah yang telah dilakukan oleh pemain dalam menyelesaikan game.
 - Untuk memainkan game FifteenPuzzle ini, pemain dapat menggunakan mouse ataupun keyboard untuk memindahkan tile puzzle.
-- Jika angka sudah tersusun dengan benar, maka kotak sudah tidak bisa di pindah yang menandakan game selesai atau menang.
-- Terdapat tombol Reset yang dapat digunakan untuk mengacak puzzle.
+- Jika angka sudah tersusun dengan benar, maka kotak sudah tidak bisa dipindah yang menandakan game selesai atau menang.
+- Terdapat tombol **Reset** yang dapat digunakan untuk mengacak ulang puzzle.
