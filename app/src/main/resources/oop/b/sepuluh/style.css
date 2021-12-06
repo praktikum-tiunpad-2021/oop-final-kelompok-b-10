@@ -1,0 +1,44 @@
+.root {
+  -fx-custom-tile-color: #4D4D56;
+  -fx-background-color: #F4C3C2;
+  -fx-custom-secondary-color: #DF8080;
+  -fx-custom-font-color: #ffffff;
+}
+
+.move-counter {
+  -fx-fill: -fx-custom-secondary-color;
+  -fx-arc-width: 50px;
+  -fx-arc-height: 50px;
+}
+
+.tile {
+  -fx-fill: -fx-custom-tile-color;
+  -fx-arc-width: 16px;
+  -fx-arc-height: 16px;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 4, 0, 0, 1);
+}
+
+.tile:hover {
+  -fx-opacity: 0.85;
+  -fx-cursor: hand;
+}
+
+.label {
+  -fx-text-fill: -fx-custom-font-color;
+}
+
+.move-label {
+  -fx-text-fill: -fx-custom-secondary-color;
+}
+
+.button {
+  -fx-background-color: -fx-custom-secondary-color; 
+  -fx-text-fill: -fx-custom-font-color; 
+  -fx-background-radius: 8; 
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 4, 0, 0, 1);
+}
+
+.button:hover {
+  -fx-opacity: 0.85;
+  -fx-cursor: hand;
+}
