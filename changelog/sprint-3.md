@@ -18,7 +18,7 @@
 | ID  | Title/Desc | Asignee | Status |
 | --- | ---------- | ------- | ------ |
 | 3.1 | Error Handling | Fauzan | DONE |
-| 3.2 | Trial Challenge | Della | DONE |
+| 3.2 | Trial the App | Della | DONE |
 | 3.3 | Finishing | Indah | DONE |
 
 ## Retrospective 
