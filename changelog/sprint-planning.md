@@ -16,7 +16,7 @@
 | 2.1 | Integrasi Logika Puzzle ke dalam UI |  Fauzan & Indah |
 | 2.2 | Menyelesaikan UI | Della |
 | 3.1 | Error Handling | Fauzan |
-| 3.2 | Trial Challenge | Della |
+| 3.2 | Trial the App | Della |
 | 3.3 | Finishing | Indah |
 
 ## Sprint Backlog Plan (Sprint 1)
