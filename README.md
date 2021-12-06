@@ -48,9 +48,10 @@ This repository is a final project (Java GUI) from Object-Oriented Programming C
 ## Classes Used
 
 1. **Fifteen Puzzle** - `FifteenPuzzle.java`
+   - Berisi logika-logika yang digunakan dalam game fifteen puzzle
       
-2. **Fruit** - `InnerPuzzle`
-   - Class InnerPuzzle untuk ...
+2. **Inner Puzzle** - `InnerPuzzle`
+   - Mengambil data dari Inner Puzzle untuk bisa ditampilkan
    
 
 
@@ -58,4 +59,10 @@ UML image here
 
 ## Notable Assumption and Design App Details
 
-TO;DO
+- Rekomendasi ukuran game 2x2, 3x3, 4x4, 5x5, 6x6, 7x7, dan 8x8.
+- Program kita resizeable, namun disarankan window nya berbentuk segi pajang.
+- Argumen int yang mungkin digunakan untuk menjalankan aplikasi adalah 2-8.
+- Game FifteenPuzzle ini memiliki Move Counter untuk menghitung berapa langkah yang telah dilakukan oleh pemain dalam menyelesaikan game.
+- Untuk memainkan game FifteenPuzzle ini, pemain dapat menggunakan mouse ataupun keyboard untuk memindahkan tile puzzle.
+- Jika angka sudah tersusun dengan benar, maka kotak sudah tidak bisa di pindah yang menandakan game selesai atau menang.
+- Terdapat tombol Reset yang dapat digunakan untuk mengacak puzzle.
