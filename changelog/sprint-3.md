@@ -11,14 +11,15 @@
 ## Sprint Overview
 | Planned (n)   | Completed (n) |
 | ------------- |-------------- |
-| n             | n             |
+| 3             | 3             |
 
 ## Sprint 3 Backlog
 
 | ID  | Title/Desc | Asignee | Status |
 | --- | ---------- | ------- | ------ |
-| 3.1 | Preparing the x | Jane Doe | DONE |
-| 3.2 | Make the x | John Doe | FAILED |
+| 3.1 | Error Handling | Fauzan | DONE |
+| 3.2 | Trial Challenge | Della | DONE |
+| 3.3 | Finishing | Indah | DONE |
 
 ## Retrospective 
 
