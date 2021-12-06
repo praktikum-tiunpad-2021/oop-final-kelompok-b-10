@@ -37,14 +37,22 @@ This repository is a final project (Java GUI) from Object-Oriented Programming C
 ## Running The App
 
 1. Compile dan jalankan project dengan menggunakan perintah :
-gradlew run
+
+ ```
+ gradlew run
+ ```
 2. Tombol Keyword yang digunakan adalah sebagai berikut :
-   Tombol ←, ↓, →, dan ↑ untuk menentukan arah pergerakan kotak kosong
+   Tombol `←`, `↓`, `→`, dan `↑` untuk menentukan arah pergerakan kotak kosong
 3. Jika ingin memainkannya hanya dengan mouse bisa
 
 ## Classes Used
 
-TO;DO
+1. **Fifteen Puzzle** - `FifteenPuzzle.java`
+      
+2. **Fruit** - `InnerPuzzle`
+   - Class InnerPuzzle untuk ...
+   
+
 
 UML image here
 

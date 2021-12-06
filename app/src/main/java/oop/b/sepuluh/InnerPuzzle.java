@@ -122,10 +122,10 @@ public class InnerPuzzle {
 
   private boolean isSolvable(ArrayList<Integer> grid1D){
     int invCount = 0;
-    for (int i = 0; i < puzzleSize - 1; i++){
+    for (int i = 0; i < (puzzleSize * puzzleSize) - 1; i++){
       if (grid1D.get(i) == 0) continue;
 
-      for (int j = i + 1; j < puzzleSize; j++){
+      for (int j = i + 1; j < puzzleSize * puzzleSize; j++){
         if (grid1D.get(j) == 0) continue;
         if (grid1D.get(i) > grid1D.get(j)) invCount++;
       }
